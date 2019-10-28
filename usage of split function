@@ -1,0 +1,26 @@
+public Users ValidateUserCount(bool AssignUserflag)
+        {
+            string usercount = "";
+            int minCount = 0;
+            int maxCount = 0;
+            bool flag = false;
+            try
+            {
+                usercount = Browser.webDriver.FindElement(By.CssSelector("span.user-count")).Text.Trim();
+                flag = Browser.webDriver.FindElement(By.CssSelector("[class*='btn-lg']")).Enabled;
+                string[] user = usercount.Split('/');
+                minCount = Int32.Parse(user[0]);
+                maxCount = Int32.Parse(user[1]);
+                if (AssignUserflag==flag && minCount==maxCount)
+                {
+                    PageBase.WriteLog(Logger.LogLevel.Success, "Assign users button is disabled and we cannot assign more users.");
+                }
+                if(AssignUserflag == flag && minCount < maxCount)
+                {
+                    PageBase.WriteLog(Logger.LogLevel.Success, "Assign users button is enabled and we can assign more users.");
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
